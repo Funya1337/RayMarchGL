@@ -1,10 +1,10 @@
-#include "Camera.h"
+#include"Camera.h"
 
-Camera::Camera(float width, float height, glm::vec3 position)
+Camera::Camera(int width, int height, glm::vec3 position)
 {
   Camera::width = width;
   Camera::height = height;
-  Camera::position = position;
+  Position = position;
 }
 
 void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane)
@@ -12,67 +12,83 @@ void Camera::updateMatrix(float FOVdeg, float nearPlane, float farPlane)
   glm::mat4 view = glm::mat4(1.0f);
   glm::mat4 projection = glm::mat4(1.0f);
 
-  view = glm::lookAt(position, position + Orientation, Up);
+  view = glm::lookAt(Position, Position + Orientation, Up);
   projection = glm::perspective(glm::radians(FOVdeg), width / float(height), nearPlane, farPlane);
 
   cameraMatrix = projection * view;
 }
 
-glm::vec3 Camera::getRightVector() const {
-  return glm::normalize(glm::cross(Orientation, Up));
+void Camera::Matrix(Shader& shader, const char* uniform)
+{
+  glUniformMatrix4fv(glGetUniformLocation(shader.ID(), uniform), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
 }
 
-glm::vec3 Camera::getUpVector() const {
-  return Up;
+void Camera::updateFirstPersonPosition()
+{
+  Position = glm::vec3(0.0f, 1.0f, 0.0f);
 }
 
 void Camera::Inputs(GLFWwindow* window)
 {
-  // Handles key inputs
+  if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_PRESS)
+  {
+    checker = true;
+  }
+  if (glfwGetKey(window, GLFW_KEY_F1) == GLFW_RELEASE && checker)
+  {
+    isFirstPerson = !isFirstPerson;
+    if (isFirstPerson) updateFirstPersonPosition();
+    checker = false;
+  }
+  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+  {
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    isMouseHidden = false;
+  }
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
   {
-    position += speed * Orientation;
+    if (isFirstPerson)
+      Position += glm::vec3(Orientation.x, 0, Orientation.z) * speed;
+    else
+      Position += speed * Orientation;
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
   {
-    position += speed * -glm::normalize(glm::cross(Orientation, Up));
+    Position += speed * -glm::normalize(glm::cross(Orientation, Up));
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
   {
-    position += speed * -Orientation;
+    if (isFirstPerson)
+      Position += glm::vec3(-Orientation.x, 0, -Orientation.z) * speed;
+    else
+      Position += speed * -Orientation;
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
   {
-    position += speed * glm::normalize(glm::cross(Orientation, Up));
+    Position += speed * glm::normalize(glm::cross(Orientation, Up));
   }
-  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+
+  // turn off for first person
+  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS && !isFirstPerson)
   {
-    position += speed * Up;
+    Position += speed * Up;
   }
-  if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+  if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS && !isFirstPerson)
   {
-    position += speed * -Up;
+    Position += speed * -Up;
   }
   if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
   {
-    speed = 0.4f;
+    speed = 0.1f;
   }
   else if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_RELEASE)
   {
-    speed = 0.1f;
+    speed = 0.05f;
   }
 
-
-  if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+  if (isMouseHidden)
   {
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-
-    if (firstClick)
-    {
-      glfwSetCursorPos(window, (width / 2), (height / 2));
-      firstClick = false;
-    }
-
     double mouseX;
     double mouseY;
     glfwGetCursorPos(window, &mouseX, &mouseY);
@@ -91,23 +107,4 @@ void Camera::Inputs(GLFWwindow* window)
 
     glfwSetCursorPos(window, (width / 2), (height / 2));
   }
-  else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
-  {
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    firstClick = true;
-  }
-}
-
-void Camera::sendToShader(Shader& shader) {
-  glUniform3f(glGetUniformLocation(shader.ID(), "uCameraPos"), position.x, position.y, position.z);
-
-  glUniform3f(glGetUniformLocation(shader.ID(), "uCameraDir"), Orientation.x, Orientation.y, Orientation.z);
-
-  glm::vec3 right = getRightVector();
-  glm::vec3 up = getUpVector();
-  glUniform3f(glGetUniformLocation(shader.ID(), "uCameraRight"), right.x, right.y, right.z);
-  glUniform3f(glGetUniformLocation(shader.ID(), "uCameraUp"), up.x, up.y, up.z);
-  glUniformMatrix4fv(glGetUniformLocation(shader.ID(), "uCameraMatrix"), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
-
-  glUniform1f(glGetUniformLocation(shader.ID(), "uFOV"), FOV);
 }

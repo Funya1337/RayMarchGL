@@ -1,3 +1,6 @@
+C:\Users\gta76\source\repos\OpenGL\OpenGL\dependencies\stb\stb.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\stb.obj
+C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Model.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\Model.obj
+C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Mesh.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\Mesh.obj
 C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Camera.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\Camera.obj
 C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Helper\GLDebug.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\GLDebug.obj
 C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Helper\EBO.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\EBO.obj
@@ -7,3 +10,4 @@ C:\Users\gta76\source\repos\OpenGL\OpenGL\dependencies\glad\src\glad.c;C:\Users\
 C:\Users\gta76\source\repos\OpenGL\OpenGL\src\Main.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\Main.obj
 C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Helper\VBO.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\VBO.obj
 C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Helper\VAO.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\VAO.obj
+C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Helper\Texture.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\Texture.obj

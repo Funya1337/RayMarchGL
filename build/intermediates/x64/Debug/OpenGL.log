@@ -1,3 +1,6 @@
-﻿  Camera.cpp
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+﻿  BackEnd.cpp
+C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\BackEnd.cpp(21,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\BackEnd.cpp(22,21): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Camera.cpp
+  Generating Code...
   OpenGL.vcxproj -> C:\Users\gta76\source\repos\OpenGL\build\x64\Debug\OpenGL.exe

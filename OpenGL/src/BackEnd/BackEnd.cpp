@@ -1,63 +1,39 @@
 #include "BackEnd.h"
-#include "./Helper/Shader.h"
-#include "./Helper/VBO.h"
-#include "./Helper/VAO.h"
-#include "./Helper/EBO.h"
-
-#include "./Helper/GLDebug.h"
-#include "Camera.h"
-
-#include <glm/vec2.hpp>
+#include "Model.h"
 
 namespace BackEnd {
 
-  GLfloat vertices[] = {
-    -1.0f, -1.0f, 0.0f,    1.0f, 0.0f, 0.0f,
-     1.0f, -1.0f, 0.0f,    0.0f, 1.0f, 0.0f,
-     1.0f,  1.0f, 0.0f,    0.0f, 0.0f, 1.0f,
-    -1.0f,  1.0f, 0.0f,    1.0f, 1.0f, 0.0f,
+  Vertex vertices[] =
+  { //               COORDINATES           /            COLORS          /           NORMALS         /       TEXTURE COORDINATES    //
+    Vertex{glm::vec3(-1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 0.0f)},
+    Vertex{glm::vec3(-1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(0.0f, 1.0f)},
+    Vertex{glm::vec3(1.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 1.0f)},
+    Vertex{glm::vec3(1.0f, 0.0f,  1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f), glm::vec2(1.0f, 0.0f)}
   };
 
-  GLuint indices[] = {
-      0, 1, 2,
-      0, 2, 3
+  GLuint indices[] =
+  {
+    0, 1, 2,
+    0, 2, 3
   };
 
-  float _windowWidth = 2560.0f;
-  float _windowHeight = 1440.0f;
-
-  glm::vec2 windowSize = { _windowWidth, _windowHeight };
+  GLFWwindow* window = nullptr;
+  int _windowWidth = 2560.0f;
+  int _windowHeight = 1440.0f;
 
   void Framebuffer_size_callback(GLFWwindow* window, int width, int height)
   {
     glViewport(0, 0, width, height);
   }
 
-  void mouseEvent(GLFWwindow *window, GLuint uniMouseID)
-  {
-    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-    {
-      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-      double mouseX;
-      double mouseY;
-      glfwGetCursorPos(window, &mouseX, &mouseY);
-      glUniform2f(uniMouseID, mouseX, mouseY);
-     //std::cout << mouseX << " " << mouseY << std::endl;
-    }
-    else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
-    {
-      glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    }
-  }
-
-  void Init()
+  void InitializeProgram()
   {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(_windowWidth, _windowHeight, "LearnOpenGL", NULL, NULL);
+    window = glfwCreateWindow(_windowWidth, _windowHeight, "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
       std::cout << "Failed to create GLFW window" << std::endl;
@@ -72,25 +48,33 @@ namespace BackEnd {
       std::cout << "Failed to initialize GLAD" << std::endl;
       return;
     }
+  }
+  
+  void MainLoop()
+  {
+    Model backpack("./res/models/backpack/backpack.obj");
+
+    Texture textures[]
+    {
+      Texture("./res/textures/planks.png", "diffuse", 0),
+      Texture("./res/textures/planksSpec.png", "specular", 0)
+    };
 
     Shader shaderProgram("./res/shaders/default.vert", "./res/shaders/default.frag");
+    std::vector<Vertex> verts(vertices, vertices + sizeof(vertices) / sizeof(Vertex));
+    std::vector<GLuint> ind(indices, indices + sizeof(indices) / sizeof(GLuint));
+    std::vector<Texture> tex(textures, textures + sizeof(textures) / sizeof(Texture));
+    Mesh floor(verts, ind, tex);
 
-    VAO vao;
-    vao.Bind();
+    glm::vec3 planePos = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::mat4 planeModel = glm::mat4(1.0f);
+    planeModel = glm::translate(planeModel, planePos);
 
-    VBO vbo(vertices, sizeof(vertices));
-    EBO ebo(indices, sizeof(indices));
+    glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+    glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
 
-    vao.LinkAttrib(vbo, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
-    vao.LinkAttrib(vbo, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    
-    vao.Unbind();
-    vbo.Unbind();
-    ebo.Unbind();
-
-    GLuint uniID = glGetUniformLocation(shaderProgram.ID(), "u_resolution");
-    GLuint uniMouseID = glGetUniformLocation(shaderProgram.ID(), "u_mouse");
-    GLuint uniTimeID = glGetUniformLocation(shaderProgram.ID(), "u_time");
+    shaderProgram.use();
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID(), "model"), 1, GL_FALSE, glm::value_ptr(planeModel));
 
     Camera camera(_windowWidth, _windowHeight, glm::vec3(0.0f, 0.0f, 2.0f));
 
@@ -100,6 +84,8 @@ namespace BackEnd {
     unsigned int counter = 0;
 
     glfwSwapInterval(1);
+
+    glEnable(GL_DEPTH_TEST);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -117,29 +103,22 @@ namespace BackEnd {
       }
 
       glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-      glClear(GL_COLOR_BUFFER_BIT);
-
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      
       camera.Inputs(window);
-      camera.updateMatrix(90.0f, 0.1f, 100.0f);
+      camera.updateMatrix(45.0f, 0.1f, 100.0f);
 
-      shaderProgram.use();
-      glUniform2f(uniID, windowSize.x, windowSize.y);
-      glUniform1f(uniTimeID, crntTime);
-      camera.sendToShader(shaderProgram);
-      //mouseEvent(window, uniMouseID);
-      vao.Bind();
-
-      GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0));
+      floor.Draw(shaderProgram, camera);
+      backpack.Draw(shaderProgram, camera);
 
       glfwSwapBuffers(window);
       glfwPollEvents();
     }
-
-    vao.Delete();
-    vbo.Delete();
-    ebo.Delete();
-
+    glfwDestroyWindow(window);
+  }
+  
+  void CleanUp()
+  {
     glfwTerminate();
-    return;
   }
 }

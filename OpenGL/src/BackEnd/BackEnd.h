@@ -5,6 +5,8 @@
 #include <GLFW/glfw3.h>
 
 namespace BackEnd {
-  void Init();
+  void InitializeProgram();
+  void MainLoop();
+  void CleanUp();
   void Framebuffer_size_callback(GLFWwindow* window, int width, int height);
 }

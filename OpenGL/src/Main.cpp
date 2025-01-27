@@ -2,6 +2,8 @@
 
 int main()
 {
-  BackEnd::Init();
+  BackEnd::InitializeProgram();
+  BackEnd::MainLoop();
+  BackEnd::CleanUp();
   return 0;
 }
