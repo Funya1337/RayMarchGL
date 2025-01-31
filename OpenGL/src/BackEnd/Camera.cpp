@@ -25,7 +25,36 @@ void Camera::Matrix(Shader& shader, const char* uniform)
 
 void Camera::updateFirstPersonPosition()
 {
-  Position = glm::vec3(0.0f, 1.0f, 0.0f);
+  Position = glm::vec3(0.00392937f, 0.35523f, -0.0616095f);
+}
+
+void Camera::adjustFirstPersonCameraPosition(GLFWwindow* window)
+{
+  std::cout << fpsCameraOffsetX << " " << fpsCameraOffsetY << " " << fpsCameraOffsetZ << std::endl;
+  if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+  {
+    fpsCameraOffsetZ += 0.01f;
+  }
+  if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+  {
+    fpsCameraOffsetZ -= 0.01f;
+  }
+  if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
+  {
+    fpsCameraOffsetX -= 0.01f;
+  }
+  if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
+  {
+    fpsCameraOffsetX += 0.01f;
+  }
+  if (glfwGetKey(window, GLFW_KEY_8) == GLFW_PRESS)
+  {
+    fpsCameraOffsetY += 0.01f;
+  }
+  if (glfwGetKey(window, GLFW_KEY_9) == GLFW_PRESS)
+  {
+    fpsCameraOffsetY -= 0.01f;
+  }
 }
 
 void Camera::Inputs(GLFWwindow* window)
@@ -47,6 +76,7 @@ void Camera::Inputs(GLFWwindow* window)
   }
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
   {
+    //std::cout << Position.x << " " << Position.y << " " << Position.z << std::endl;
     if (isFirstPerson)
       Position += glm::vec3(Orientation.x, 0, Orientation.z) * speed;
     else
@@ -54,10 +84,12 @@ void Camera::Inputs(GLFWwindow* window)
   }
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
   {
+    //std::cout << Position.x << " " << Position.y << " " << Position.z << std::endl;
     Position += speed * -glm::normalize(glm::cross(Orientation, Up));
   }
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
   {
+    //std::cout << Position.x << " " << Position.y << " " << Position.z << std::endl;
     if (isFirstPerson)
       Position += glm::vec3(-Orientation.x, 0, -Orientation.z) * speed;
     else
@@ -65,6 +97,7 @@ void Camera::Inputs(GLFWwindow* window)
   }
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
   {
+    //std::cout << Position.x << " " << Position.y << " " << Position.z << std::endl;
     Position += speed * glm::normalize(glm::cross(Orientation, Up));
   }
 

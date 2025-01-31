@@ -9,6 +9,8 @@ in vec2 texCoord;
 
 uniform sampler2D diffuse0;
 uniform sampler2D specular0;
+uniform sampler2D shininess0;
+uniform sampler2D normal0;
 uniform vec4 lightColor;
 uniform vec3 lightPos;
 uniform vec3 camPos;
@@ -20,9 +22,9 @@ vec4 pointLight()
 
 	// intensity of light with respect to distance
 	float dist = length(lightVec);
-	float a = 3.0;
+	float a = 0.5;
 	float b = 0.7;
-	float inten = 1.0f / (a * dist * dist + b * dist + 1.0f);
+	float inten = 2.0f / (a * dist * dist + b * dist + 1.0f);
 
 	// ambient lighting
 	float ambient = 0.20f;
@@ -94,6 +96,7 @@ void main()
 {
 	//fragColor = vec4(color, 1.0f);
 	//fragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
-	//fragColor = pointLight();
-	fragColor = texture(diffuse0, texCoord);
+	//fragColor = texture(diffuse0, texCoord) + texture(specular0, texCoord).r;
+	//fragColor = vec4(vec3(gl_FragCoord.z), 1.0f);
+	fragColor = pointLight();
 }

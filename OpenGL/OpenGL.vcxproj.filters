@@ -14,6 +14,9 @@
     <ClCompile Include="src\BackEnd\Helper\Texture.cpp" />
     <ClCompile Include="src\BackEnd\Mesh.cpp" />
     <ClCompile Include="src\BackEnd\Model.cpp" />
+    <ClCompile Include="dependencies\tinyobj\tiny_obj_loader.cpp" />
+    <ClCompile Include="src\CustomObjects\LightCube.cpp" />
+    <ClCompile Include="src\CustomObjects\Plane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\BackEnd\BackEnd.h" />
@@ -194,6 +197,8 @@
     <ClInclude Include="dependencies\assimp\include\assimp\XmlParser.h" />
     <ClInclude Include="dependencies\assimp\include\assimp\XMLTools.h" />
     <ClInclude Include="dependencies\assimp\include\assimp\ZipArchiveIOSystem.h" />
+    <ClInclude Include="src\CustomObjects\LightCube.h" />
+    <ClInclude Include="src\CustomObjects\Plane.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\default.vert" />
@@ -223,5 +228,7 @@
     <Image Include="..\..\..\..\Downloads\pop_cat.png" />
     <Image Include="res\textures\pop_cat.png" />
     <Image Include="res\textures\red-brick.png" />
+    <Image Include="res\textures\planksSpec.png" />
+    <Image Include="res\textures\planks.png" />
   </ItemGroup>
 </Project>

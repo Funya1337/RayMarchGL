@@ -1,4 +1,7 @@
 C:\Users\gta76\source\repos\OpenGL\OpenGL\dependencies\stb\stb.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\stb.obj
+C:\Users\gta76\source\repos\OpenGL\OpenGL\dependencies\tinyobj\tiny_obj_loader.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\tiny_obj_loader.obj
+C:\Users\gta76\source\repos\OpenGL\OpenGL\src\CustomObjects\Plane.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\Plane.obj
+C:\Users\gta76\source\repos\OpenGL\OpenGL\src\CustomObjects\LightCube.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\LightCube.obj
 C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Model.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\Model.obj
 C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Mesh.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\Mesh.obj
 C:\Users\gta76\source\repos\OpenGL\OpenGL\src\BackEnd\Camera.cpp;C:\Users\gta76\source\repos\OpenGL\build\intermediates\x64\Debug\Camera.obj

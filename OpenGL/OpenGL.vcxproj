@@ -20,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dependencies\stb\stb.cpp" />
+    <ClCompile Include="dependencies\tinyobj\tiny_obj_loader.cpp" />
+    <ClCompile Include="src\CustomObjects\Plane.cpp" />
+    <ClCompile Include="src\CustomObjects\LightCube.cpp" />
     <ClCompile Include="src\BackEnd\Model.cpp" />
     <ClCompile Include="src\BackEnd\Mesh.cpp" />
     <ClCompile Include="src\BackEnd\Camera.cpp" />
@@ -202,6 +205,8 @@
     <ClInclude Include="dependencies\assimp\include\XMLTools.h" />
     <ClInclude Include="dependencies\assimp\include\ZipArchiveIOSystem.h" />
     <ClInclude Include="dependencies\stb\stb_image.h" />
+    <ClInclude Include="src\CustomObjects\Plane.h" />
+    <ClInclude Include="src\CustomObjects\LightCube.h" />
     <ClInclude Include="src\BackEnd\Model.h" />
     <ClInclude Include="src\BackEnd\Mesh.h" />
     <ClInclude Include="src\BackEnd\Camera.h" />
@@ -239,6 +244,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\Downloads\pop_cat.png" />
+    <Image Include="res\textures\planks.png" />
+    <Image Include="res\textures\planksSpec.png" />
     <Image Include="res\textures\pop_cat.png" />
     <Image Include="res\textures\red-brick.png" />
   </ItemGroup>
@@ -320,7 +327,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)OpenGL\dependencies\GLFW\include;$(SolutionDir)OpenGL\dependencies\glad\include;$(SolutionDir)OpenGL\dependencies\GLM\include;$(SolutionDir)OpenGL\dependencies\stb;$(SolutionDir)OpenGL\dependencies\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)OpenGL\dependencies\GLFW\include;$(SolutionDir)OpenGL\dependencies\glad\include;$(SolutionDir)OpenGL\dependencies\GLM\include;$(SolutionDir)OpenGL\dependencies\stb;$(SolutionDir)OpenGL\dependencies\assimp\include;$(SolutionDir)OpenGL\dependencies\tinyobj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -337,7 +344,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)OpenGL\dependencies\GLFW\include;$(SolutionDir)OpenGL\dependencies\glad\include;$(SolutionDir)OpenGL\dependencies\GLM\include;$(SolutionDir)OpenGL\dependencies\stb;$(SolutionDir)OpenGL\dependencies\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)OpenGL\dependencies\GLFW\include;$(SolutionDir)OpenGL\dependencies\glad\include;$(SolutionDir)OpenGL\dependencies\GLM\include;$(SolutionDir)OpenGL\dependencies\stb;$(SolutionDir)OpenGL\dependencies\assimp\include;$(SolutionDir)OpenGL\dependencies\tinyobj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -354,7 +361,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)OpenGL\dependencies\GLFW\include;$(SolutionDir)OpenGL\dependencies\glad\include;$(SolutionDir)OpenGL\dependencies\GLM\include;$(SolutionDir)OpenGL\dependencies\stb;$(SolutionDir)OpenGL\dependencies\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)OpenGL\dependencies\GLFW\include;$(SolutionDir)OpenGL\dependencies\glad\include;$(SolutionDir)OpenGL\dependencies\GLM\include;$(SolutionDir)OpenGL\dependencies\stb;$(SolutionDir)OpenGL\dependencies\assimp\include;$(SolutionDir)OpenGL\dependencies\tinyobj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -371,7 +378,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)OpenGL\dependencies\GLFW\include;$(SolutionDir)OpenGL\dependencies\glad\include;$(SolutionDir)OpenGL\dependencies\GLM\include;$(SolutionDir)OpenGL\dependencies\stb;$(SolutionDir)OpenGL\dependencies\assimp\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)OpenGL\dependencies\GLFW\include;$(SolutionDir)OpenGL\dependencies\glad\include;$(SolutionDir)OpenGL\dependencies\GLM\include;$(SolutionDir)OpenGL\dependencies\stb;$(SolutionDir)OpenGL\dependencies\assimp\include;$(SolutionDir)OpenGL\dependencies\tinyobj</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

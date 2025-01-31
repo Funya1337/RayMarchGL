@@ -32,6 +32,8 @@ public:
     loadModel(path);
   }
   void Draw(Shader& shader, Camera& camera);
+  void sendModelToShader(Shader& shader, glm::vec3 position);
+  glm::mat4 modelUniform = glm::mat4(1.0f);
 
 private:
   std::vector<Mesh> meshes;

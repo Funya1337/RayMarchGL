@@ -24,16 +24,21 @@ public:
   bool isFirstPerson = false;
   bool checker = false;
 
+  float fpsCameraOffsetX = 0.15f;
+  float fpsCameraOffsetY = 0.08f;
+  float fpsCameraOffsetZ = 0.17f;
+
   int width;
   int height;
 
-  float speed = 0.05f;
+  float speed = 1.0f;
   float sensitivity = 70.0f;
 
   Camera(int width, int height, glm::vec3 position);
 
   void updateMatrix(float FOVdeg, float nearPlane, float farPlane);
   void Matrix(Shader& shader, const char* uniform);
+  void adjustFirstPersonCameraPosition(GLFWwindow *window);
   void Inputs(GLFWwindow* window);
   void updateFirstPersonPosition();
 };

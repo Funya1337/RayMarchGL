@@ -1,0 +1,25 @@
+# Blender 4.3.2 MTL File: 'None'
+# www.blender.org
+
+newmtl ak74m
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd ak74m_AlbedoTransparency.png
+map_Ns ak74m_Roughness.png
+map_refl ak74m_Metallic.png
+map_Bump -bm 1.000000 ak74m_Normal.png
+
+newmtl arms
+Ka 1.000000 1.000000 1.000000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd -o 0 -1 0 armColor.png
+map_Ns -o 0 -1 0 armRoughness.png
+map_Bump -o 0 -1 0 -bm 1.000000 armNormal.png
